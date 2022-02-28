@@ -123,6 +123,8 @@ The below list are not covering all the commands for Linux Administration. These
 
 	~$df -h
 	~$df -Th
+	~$du -sh <path/*>
+	~$du -sch .[!.]* * | grep --regex="[0-9]*G"
 	~$lsof -u <user> #list of openfiles by specific user
 	~$lsof | grep delete #list of openfiles that are deleted
 	~$lsof | awk '{print $1}' | sort | uniq -c | sort -r -n #sort number of open files by process
