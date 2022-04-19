@@ -134,6 +134,7 @@ The below list are not covering all the commands for Linux Administration. These
 	~$sftp -oPort=<port> <user>@<ipaddress/domain>
 	~$sftp -oPort=<port> -oIdentityFile=<path to key> <user>@<ipaddress/domain>
 	~$sftp -o KexAlgorithms=<keyExchangeAlgo> -o HostKeyAlgorithms=<HostKeyAlgoName> -oIdentityFile=<path to key> -oPort=<port> <user>@<domain/ipaddress>
+	~$sftp -oPort=<port> -o KexAlgorithms=diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-dss -oIdentityfile=<path to key> <user>@<domain/ipaddress>
 	~$scp -P <port> <path to src file> <user>@<domain/ipaddress>:<target path> #send the file to target system
 	~$scp -P <port> <user>@<domain/ipaddress>:<src file path> <target file path locally> #fetch file from the target system
 
@@ -144,17 +145,27 @@ The below list are not covering all the commands for Linux Administration. These
 	~$bolt script run <script>  --no-host-key-check --tmpdir=/tmp -p <password>  --tty --targets @<ipaddress/hostname list file>  -u <user>
 	~$bolt script run <script>  --no-host-key-check --tmpdir=/tmp -p <password>  --tty --targets <ipaddress/hostname separate by ,>  -u <user>
 	
+### Sed
+	
+	~$sed -n -e "/<$hostname>/,/ismail.com/ p" <targetfile> #replace the string by variable, result will be stdout
+	~$sed -i -n -e "/<$hostname>/,/ismail.com/ p" <targetfile> #replace the string by variable, result will be saved in target file
+	~$sed -i 's/stringtoreplace/newstring/g' myfile.txt #replace the string from the file globally
+
+### find
+	
+	~$find /tmp/* -mtime +7 -exec rm {} \; #remove files from dir "tmp/" that are older than 7 days 
+	~$find /home/ -type f -name ".errors*.gz" -mtime +7 -exec rm {} \; #remove files from dir "tmp/" that are older than 7 days - with filename
+	~$find /home/ -type f -size +500M -name "*tempfile*" -exec du -sh {} \; #found the tempfile that has file size >500MB
+	~$find /home/ -type f -size +1G -exec ls -lh {} \; | awk '{ print $9 "|| Size : " $5 }' #find output in custom defined format like in this "dirname || Size:_"
+
+### Cool Grep
+
+	~$cat myfile | grep -B 1 -A 4 -i 'string one\|string two' #it will show 1 line before and 4 lines after matching the strings form myfile
+	~$grep -lr "string" * #search recursively the string from all filesystem hierarchy, as its start from which current dir you are standing and it will list files
+	~$grep -ir "string" <* or file> #search recursively the string from all filesystem hierarchy and show the content what matches - * for all files otherwise specify a single file
 	
 ### Additional 
 
 	~$top -b -n 1 | head -n +5
 	~$uptime
-	~$find /tmp/* -mtime +7 -exec rm {} \; #remove files from dir "tmp/" that are older than 7 days 
-	~$find /home/ -type f -size +500M -name "*tempfile*" -exec du -sh {} \; #found the tempfile that has file size >500MB
 	~$sestatus #check selinux status
-	~$sed -n -e "/<$hostname>/,/ismail.com/ p" <targetfile> #replace the string by variable, result will be stdout
-	~$sed -i -n -e "/<$hostname>/,/ismail.com/ p" <targetfile> #replace the string by variable, result will be saved in target file
-	
-	
-	
-
