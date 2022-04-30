@@ -466,7 +466,17 @@ scp -P <port> <path to src file> <user>@<domain/ipaddress>:<target path> #send t
 
 ```
 ```bash
-scp -P <port> <user>@<domain/ipaddress>:<src file path> <target file path locally> #fetch file from the target system
+scp -P <port> <user>@<domain/ipaddress>:<src file path> <target file path locally> #fetch/download file from the target system
+
+```
+
+```bash
+scp -r /path/to/local/source user@ssh.example.com:/path/to/remote/destination #send dir from the target system
+
+```
+
+```bash
+scp -r user@ssh.example.com:/path/to/remote/source /path/to/local/destination #fetch/download dirctory from the target system
 
 ```
 
@@ -565,6 +575,30 @@ grep -ir "string" <* or file> #search recursively the string from all filesystem
 </details>
 
 
+<details><summary>Gzip/Tar/Compress directory</summary>
+<p>
+
+```bash
+#The gzip command in Linux can only be used to compress a single file. In order to compress a folder, tar + gzip (which is basically tar -z) is used.
+#ref: https://www.educative.io/edpresso/how-to-gzip-a-directory-in-linux
+```
+
+```bash
+tar -zcvf myfolder.tar.gz myfolder #Compress folder/dir with -z in Linux
+
+```
+```bash
+tar -tf myfolder.tar.gz #view the content of compressed file
+```
+
+```bash
+gzip filename #view the content of compressed file
+```
+
+</p>
+</details>
+
+ 
 <details><summary>Other</summary>
 <p>
 
