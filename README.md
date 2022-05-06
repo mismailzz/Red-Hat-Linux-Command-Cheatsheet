@@ -595,6 +595,10 @@ tar -tf myfolder.tar.gz #view the content of compressed file
 gzip filename #view the content of compressed file
 ```
 
+```bash
+unzip file.gz #uncompress the zip file
+```
+
 </p>
 </details>
 
