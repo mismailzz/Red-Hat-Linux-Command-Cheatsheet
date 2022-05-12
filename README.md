@@ -231,6 +231,12 @@ setfacl -m mask:r <file> #setting mask on file
 ```bash
 setfacl -d -m u:priya:rw <dir> #setting ACL for directory
 ```
+```bash
+getfacl -R <dir> > permissions.acl #BackUp ACL's in file having all info related ownership/dir inside the dir,subdir,files
+```
+```bash
+setfacl --restore=permissions.acl #Restore the Permissions/Ownership
+```
 
 </p>
 </details>
