@@ -556,6 +556,26 @@ find /home/ -type f -size +1G -exec ls -lh {} \; | awk '{ print $9 "|| Size : " 
 
 ```
 
+```bash
+#Combine find exec multiple commands
+find /tmp/dir1/ -type f -exec chown root:root {} \; -exec chmod o+x {} \;
+``` 
+
+```bash
+#Combine find exec multiple commands
+find /tmp/dir1/ -type f -exec chown root:root {} \; -exec chmod o+x {} \;
+```
+
+```bash
+#Combine find exec shell script function
+#[Ref: https://www.golinuxcloud.com/find-exec-multiple-commands-examples-unix/#:~:text=Linux%20or%20Unix.-,Find%20exec%20multiple%20commands%20syntax,%5C%3B%20or%20as%20%22%20%3B%20%22.]
+find /tmp/dir1/ -type f -exec bash -c '
+for item do
+[[ $item =~ "file1" ]] && mv -v $item ${item}_renamed
+done
+' bash {} +
+```
+
 </p>
 </details>
 
@@ -603,6 +623,40 @@ gzip filename #view the content of compressed file
 
 ```bash
 unzip file.gz #uncompress the zip file
+```
+
+</p>
+</details>
+
+<details><summary>AWK</summary>
+<p>
+
+```bash
+#Multiple Conditional Statement - Not Equal, Regex, Equal
+awk -F: '($1!="root" && $1!="sync" ) {print}' /etc/passwd
+awk -F: '($1!="root" && $1!~/^\+/) {print}' /etc/passwd
+awk -F: '($1=="virusgroup") {print $3}' /etc/group
+du -sh * | grep G | awk '($1~/[0-9]+\.?[0-9]*G$/)'
+```
+ 
+</p>
+</details>
+ 
+
+<details><summary>stat</summary>
+<p>
+
+```bash
+stat -L -c "%A" "$dir"
+
+```
+```bash
+stat --printf='Name: %n\nPermissions: %a\n' /etc
+
+```
+```bash
+stat --printf='User: %U | Group: %G' /etc 
+
 ```
 
 </p>
