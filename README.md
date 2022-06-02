@@ -568,6 +568,11 @@ find /tmp/dir1/ -type f -exec chown root:root {} \; -exec chmod o+x {} \;
 #Combine find exec multiple commands
 find /tmp/dir1/ -type f -exec chown root:root {} \; -exec chmod o+x {} \;
 ```
+```bash 
+#World-Writable dir
+#CIS
+find / -path /proc -prune -o -path /sys -prune -o -type d -perm -0002 -mindepth 3 -maxdepth 4 -printf "World-Writable dir %p\n" 2>/dev/null
+```
 
 ```bash
 #Combine find exec shell script function
