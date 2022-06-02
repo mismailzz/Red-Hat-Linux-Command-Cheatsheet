@@ -428,6 +428,9 @@ du -sh <path/*>
 
 ```
 ```bash
+df --local -P #in KBs
+```
+```bash
 du -sch .[!.]* * | grep --regex="[0-9]*G"
 
 ```
@@ -637,12 +640,38 @@ awk -F: '($1!="root" && $1!="sync" ) {print}' /etc/passwd
 awk -F: '($1!="root" && $1!~/^\+/) {print}' /etc/passwd
 awk -F: '($1=="virusgroup") {print $3}' /etc/group
 du -sh * | grep G | awk '($1~/[0-9]+\.?[0-9]*G$/)'
+awk '/^\s*UID_MIN/{print $2}' /etc/login.defs
+df --local -P | awk {'if (NR!=1) print $6'} #skip first or header line
+```
+```bash
+df --local -P | awk {'if (NR!=1) print $6'} #skip first or header line
+```
+```bash
+#Variable in awk statement
+awk -F: -v GID="$(awk -F: '($1=="shadow") {print $3}' /etc/group)" '($4==GID) {print $1}' /etc/passwd
+```
+```bash
+#Awk result with loop
+awk -F: -v GID="$(awk -F: '($1=="shadow") {print $3}' /etc/group)" '($4==GID) {print $1}' /etc/passwd | (while read -r usr; do
+        [ -z "$output" ] && output="\"$usr\"" || output=",\"$usr\""
+done
+```
+
+</p>
+</details>
+ 
+<details><summary>XARGS</summary>
+<p>
+
+```bash
+#XARGS Application - to use last command result for next command
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser -printf "%p has no owner\n" 2>/dev/null
+
 ```
  
 </p>
 </details>
  
-
 <details><summary>stat</summary>
 <p>
 
