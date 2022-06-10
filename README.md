@@ -574,6 +574,13 @@ find /tmp/dir1/ -type f -exec chown root:root {} \; -exec chmod o+x {} \;
 find / -path /proc -prune -o -path /sys -prune -o -type d -perm -0002 -mindepth 3 -maxdepth 4 -printf "World-Writable dir %p\n" 2>/dev/null
 ```
 
+
+```bash 
+#find files with permission
+find / -xdev \( -perm -4000 -o -perm -2000 \) -type f 
+#4000 for suid, 2000 for guid
+```
+ 
 ```bash
 #Combine find exec shell script function
 #[Ref: https://www.golinuxcloud.com/find-exec-multiple-commands-examples-unix/#:~:text=Linux%20or%20Unix.-,Find%20exec%20multiple%20commands%20syntax,%5C%3B%20or%20as%20%22%20%3B%20%22.]
@@ -605,6 +612,21 @@ grep -ir "string" <* or file> #search recursively the string from all filesystem
 
 ```
 
+```bash
+grep -E -s "<regex>" <file>
+#grep with -E extended regex -s with silent mode as no error message on screen
+```
+
+```bash
+grep -P -s -- "<regex>" <file>
+#grep with -P perl regex -s with silent mode as no error message on screen
+```
+
+```bash
+grep -Eq '<regex>' <file> && grep -Eq '<regex>' file2 && result=pass
+#grep with -E extended regex -q with quite mode as no error/stdout message on screen
+```
+ 
 </p>
 </details>
 
