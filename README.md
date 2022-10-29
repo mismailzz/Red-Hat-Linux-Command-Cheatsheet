@@ -718,6 +718,17 @@ stat --printf='User: %U | Group: %G' /etc
 </p>
 </details>
 
+<details><summary>lsof</summary>
+<p>
+
+```bash
+lsof -u <user> #list the openfiles by a user
+
+```
+
+</p>
+</details>
+
  
 <details><summary>Other</summary>
 <p>
