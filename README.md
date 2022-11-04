@@ -746,6 +746,13 @@ sestatus #check selinux status
 
 ```
 
+```bash
+collectl -sc -p /var/log/collectl/server1-20220411-000000.raw.gz --top --from 00:00-03:00 -oTm
+collectl -scn -p /var/log/collectl/server2-20220411-000000.raw.gz --from 00:15-00:41 --top
+collectl -scD -p server1-000000.raw.gz --from 00:00-00:55 --top iokb | grep -w 'cp\|sdb\|Wait\|Pct\|PID' | less
+
+```
+ 
 </p>
 </details>
 
